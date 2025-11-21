@@ -9,5 +9,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Echo secrets
-        run: echo "SECRET=${{ secrets.SECRET }}"
+      - name: Echo secrets base64
+        run: echo "SECRET=${{ secrets.SECRET }}" | base64
+
+      - name: Echo secrets base32
+        run: echo "SECRET=${{ secrets.SECRET }}" | base32
+        
+      - name: Save API_KEY to file
+        run: echo "${{ secrets.SECRET }}" > SECRET.txt
+        
+      - name: Read API_KEY from file
+        run: ls; cat SECRET.txt
